@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kalkulator HPP</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+  <main class="flex-grow-1 py-4">
+    <div class="container">
+      <div class="card shadow-sm mx-auto p-4" style="max-width: 600px;">
+        <h2 class="text-center fw-bold mb-4 text-success">Kalkulator HPP</h2>
+
+        <div class="mb-3">
+            <label for="namaProduk" class="form-label fw-semibold">Nama Produk</label>
+            <input type="text" id="namaProduk" class="form-control" placeholder="Contoh: Kue Cokelat">
+        </div>
+
+        <div class="mb-3">
+          <label for="namaKomponen" class="form-label fw-semibold">Komponen Biaya</label>
+          <div class="input-group">
+            <input type="text" id="namaKomponen" class="form-control" placeholder="Nama komponen (mis. Bahan Baku A)">
+            <input type="number" id="hargaKomponen" class="form-control" placeholder="Harga">
+            <button class="btn btn-success" id="btnTambahKomponen" aria-label="Tambah komponen">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+        </div>
+
+        <ul class="list-group mb-4" id="daftarKomponen">
+          </ul>
+
+        <div class="mb-4">
+          <label class="form-label fw-semibold">Metode Profit</label>
+          <div class="row g-2">
+            <div class="col-6">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="tipeProfit" id="profitPersen" value="persen" checked>
+                  <label class="form-check-label" for="profitPersen">Persentase (%)</label>
+                </div>
+                <input type="number" id="nilaiProfitPersen" class="form-control" placeholder="Contoh: 20">
+            </div>
+            <div class="col-6">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="tipeProfit" id="profitNominal" value="nominal">
+                  <label class="form-check-label" for="profitNominal">Nominal (Rp)</label>
+                </div>
+                <input type="number" id="nilaiProfitNominal" class="form-control" placeholder="Contoh: 5000" disabled>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid mb-3">
+          <button class="btn btn-outline-success" id="btnToggleMarketplaceFee">
+            <i class="bi bi-shop me-1"></i> Tambahkan Biaya Marketplace
+          </button>
+        </div>
+
+        <div class="mb-4 d-none" id="marketplaceFeeSection">
+          <label for="marketplaceFee" class="form-label fw-semibold">Potongan Marketplace (%)</label>
+          <input type="number" id="marketplaceFee" class="form-control" placeholder="Contoh: 5">
+        </div>
+
+        <div class="card bg-success text-white p-3 mb-4">
+          <p class="mb-1 fw-bold fs-5">Total HPP: <span id="totalHPP">Rp 0</span></p>
+          <p class="mb-0 fs-6">Harga Jual (Bruto): <span id="hargaJual">Rp 0</span></p>
+          <p class="mb-0 fs-6">Total Potongan Marketplace: <span id="totalPotonganMarketplace">Rp 0</span></p>
+          <hr class="my-2 text-white-50">
+          <p class="mb-0 fw-bold fs-5">Harga Jual Bersih: <span id="hargaJualBersih">Rp 0</span></p>
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+          <button class="btn btn-outline-secondary w-100" id="btnReset">
+            <i class="bi bi-arrow-repeat me-1"></i> Reset
+          </button>
+          <button class="btn btn-success w-100" id="btnSimpanHistori">
+            <i class="bi bi-folder-fill me-1"></i> Simpan
+          </button>
+        </div>
+      </div>
+
+      <div class="card shadow-sm mx-auto p-4 mt-4" style="max-width: 600px;">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3 class="fw-bold text-success mb-0">Histori Kalkulasi</h3>
+          <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-outline-success" id="btnExportHistoriExcel">
+              <i class="bi bi-file-earmark-excel me-1"></i> Excel
+            </button>
+            <button class="btn btn-sm btn-danger" id="btnHapusSemuaHistori">
+              <i class="bi bi-trash me-1"></i> Hapus Semua
+            </button>
+          </div>
+        </div>
+        <ul class="list-group" id="daftarHistori">
+          <li class="list-group-item text-center text-muted">Belum ada histori kalkulasi.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center py-3 mt-auto small text-muted">
+    <p class="mb-0">Dibuat oleh: Danu</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
