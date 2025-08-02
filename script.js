@@ -14,7 +14,7 @@ const profitRadios = document.querySelectorAll('input[name="tipeProfit"]');
 const totalHPPSpan = document.getElementById('totalHPP');
 const hargaJualSpan = document.getElementById('hargaJual');
 const totalPotonganMarketplaceSpan = document.getElementById('totalPotonganMarketplace');
-const hargaJualBersihSpan = document.getElementById('hargaJualBersih');
+const keuntunganBersihSpan = document.getElementById('keuntunganBersih'); // Diperbarui
 
 const btnReset = document.getElementById('btnReset');
 const btnSimpanHistori = document.getElementById('btnSimpanHistori');
@@ -153,11 +153,12 @@ function hitungHPP() {
 
   const potongan = hargaJual * (fee / 100);
   let hargaJualBersih = hargaJual - potongan;
+  let keuntunganBersih = hargaJualBersih - total; // Kalkulasi Keuntungan Bersih
 
   totalHPPSpan.textContent = `Rp ${total.toLocaleString('id-ID')}`;
   hargaJualSpan.textContent = `Rp ${hargaJual.toLocaleString('id-ID')}`;
   totalPotonganMarketplaceSpan.textContent = `Rp ${potongan.toLocaleString('id-ID')}`;
-  hargaJualBersihSpan.textContent = `Rp ${hargaJualBersih.toLocaleString('id-ID')}`;
+  keuntunganBersihSpan.textContent = `Rp ${keuntunganBersih.toLocaleString('id-ID')}`; // Diperbarui
 }
 
 function resetForm() {
@@ -240,7 +241,7 @@ function simpanHistori() {
   const total = komponen.reduce((acc, curr) => acc + curr.harga, 0);
   const hargaJual = parseFloat(hargaJualSpan.textContent.replace(/[Rp.\s]/g, ''));
   const totalPotonganMarketplace = parseFloat(totalPotonganMarketplaceSpan.textContent.replace(/[Rp.\s]/g, ''));
-  const hargaJualBersih = parseFloat(hargaJualBersihSpan.textContent.replace(/[Rp.\s]/g, ''));
+  const keuntunganBersih = parseFloat(keuntunganBersihSpan.textContent.replace(/[Rp.\s]/g, '')); // Diperbarui
 
   const kalkulasiBaru = {
     tanggal: new Date().toISOString(),
@@ -250,7 +251,7 @@ function simpanHistori() {
     hargaJual: hargaJual,
     potonganMarketplace: parseFloat(marketplaceFeeInput.value) || 0,
     totalPotonganMarketplace: totalPotonganMarketplace,
-    hargaJualBersih: hargaJualBersih,
+    keuntunganBersih: keuntunganBersih, // Diperbarui
     profitPersen: parseFloat(nilaiProfitPersenInput.value) || 0,
     profitNominal: parseFloat(nilaiProfitNominalInput.value) || 0
   };
@@ -322,7 +323,7 @@ function exportHistoriExcel() {
 
   const wb = XLSX.utils.book_new();
 
-  const summaryData = [['Nama Produk', 'Total HPP', 'Harga Jual', 'Potongan Marketplace (%)', 'Total Potongan', 'Harga Jual Bersih']];
+  const summaryData = [['Nama Produk', 'Total HPP', 'Harga Jual', 'Potongan Marketplace (%)', 'Total Potongan', 'Keuntungan Bersih']]; // Diperbarui
   histori.forEach(h => {
     summaryData.push([
       h.namaProduk,
@@ -330,7 +331,7 @@ function exportHistoriExcel() {
       h.hargaJual,
       h.potonganMarketplace,
       h.totalPotonganMarketplace,
-      h.hargaJualBersih
+      h.keuntunganBersih // Diperbarui
     ]);
   });
   const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
@@ -344,7 +345,7 @@ function exportHistoriExcel() {
       ['Harga Jual:', h.hargaJual],
       ['Potongan Marketplace (%):', h.potonganMarketplace],
       ['Total Potongan Marketplace:', h.totalPotonganMarketplace],
-      ['Harga Jual Bersih:', h.hargaJualBersih],
+      ['Keuntungan Bersih:', h.keuntunganBersih], // Diperbarui
       [],
       ['Komponen'],
       ['Nama', 'Harga'],
